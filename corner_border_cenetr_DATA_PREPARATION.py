@@ -23,11 +23,12 @@ for f in all_files:
     df['ROI_bor'] = df['ROI_location'].isin(bor).cumsum(axis=0)
     df['ROI_br_cen'] = df['ROI_location'].isin(br_cen).cumsum(axis=0)
     df['ROI_ct'] = df['ROI_location'].isin(ct).cumsum(axis=0)
+    df['File_name'] = os.path.basename(f)
     df_single.append(df)
     # concatenate the dataframes and save the result to a CSV file
 s = pd.concat(df_single, axis=1)
 #here we need to be selective in the choice of result to avoide any further copy paste action
-specified_columns = ['ROI_cor', 'ROI_cr_br', 'ROI_bor', 'ROI_br_cen', 'ROI_ct','ROI_TT_S', 'Dis_cm']
+specified_columns = ['ROI_cor', 'ROI_cr_br', 'ROI_bor', 'ROI_br_cen', 'ROI_ct','ROI_TT_S', 'Dis_cm', 'File_name']
 df_filtered = s[specified_columns]
 # extract the last row of each repeated DataFrame
 last_rows = [df_filtered[-1:] for df_filtered in df_single]
